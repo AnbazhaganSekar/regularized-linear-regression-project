@@ -1,0 +1,80 @@
+==========================================================
+REGULARIZED LINEAR REGRESSION REPORT
+==========================================================
+
+OBJECTIVE
+----------------------------------------------------------
+
+The objective of this project is to implement Ridge and
+Lasso Regression from scratch using NumPy and Gradient
+Descent optimization.
+
+DATASET
+----------------------------------------------------------
+
+A synthetic dataset was generated using
+sklearn.datasets.make_regression with:
+
+- 1000 samples
+- 50 features
+- Noise level = 15
+
+METHODOLOGY
+----------------------------------------------------------
+
+1. Generated synthetic regression dataset
+2. Split data into training and testing sets
+3. Implemented Ridge Regression manually
+4. Implemented Lasso Regression manually
+5. Used Gradient Descent for optimization
+6. Evaluated models using:
+   - Mean Squared Error (MSE)
+   - R2 Score
+
+RIDGE REGRESSION
+----------------------------------------------------------
+
+Ridge Regression uses L2 regularization.
+It reduces overfitting by shrinking coefficient values.
+
+Formula:
+
+Loss = MSE + lambda * sum(weights^2)
+
+LASSO REGRESSION
+----------------------------------------------------------
+
+Lasso Regression uses L1 regularization.
+It can shrink some coefficients to exactly zero,
+performing feature selection.
+
+Formula:
+
+Loss = MSE + lambda * sum(abs(weights))
+
+RESULTS
+----------------------------------------------------------
+
+Ridge Regression:
+- Lower coefficient magnitude
+- Most coefficients remain non-zero
+
+Lasso Regression:
+- Produces sparse coefficients
+- Performs feature selection
+
+BIAS-VARIANCE TRADEOFF
+----------------------------------------------------------
+
+Increasing lambda increases bias and reduces variance.
+Small lambda values may lead to overfitting while very
+large lambda values may lead to underfitting.
+
+CONCLUSION
+----------------------------------------------------------
+
+This project demonstrates how regularization improves
+model generalization and prevents overfitting.
+Ridge Regression is useful when all features are
+important, while Lasso Regression is effective for
+feature selection.
