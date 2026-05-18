@@ -116,4 +116,49 @@ print("Ridge:", ridge_non_zero)
 print("Lasso:", lasso_non_zero)
 
 
+lambda_values = [0.01, 0.1, 1, 10, 100]
+
+non_zero_coefficients = []
+
+for lam in lambda_values:
+
+    temp_lasso = LassoRegression(
+        learning_rate=0.001,
+        epochs=3000,
+        lambda_param=lam
+    )
+
+    temp_lasso.fit(X_train, y_train)
+
+    count = np.sum(np.abs(temp_lasso.weights) > 0.01)
+
+    non_zero_coefficients.append(count)
+
+
+plt.figure(figsize=(8,5))
+
+plt.plot(
+    lambda_values,
+    non_zero_coefficients,
+    marker='o'
+)
+
+plt.xscale("log")
+
+plt.title("Lambda vs Non-Zero Coefficients")
+
+plt.xlabel("Lambda")
+
+plt.ylabel("Non-Zero Coefficients")
+
+plt.grid(True)
+
+plt.tight_layout()
+
+plt.savefig(
+    os.path.join(output_dir, "lambda_sparsity_analysis.png")
+)
+
+plt.close()
+
 print("\nPROJECT COMPLETED SUCCESSFULLY")
