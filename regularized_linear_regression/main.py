@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -48,8 +49,8 @@ print("R2 Score:", ridge_r2)
 
 lasso = LassoRegression(
     learning_rate=0.001,
-    epochs=2000,
-    lambda_param=1
+    epochs=3000,
+    lambda_param=10
 )
 
 lasso.fit(X_train, y_train)
@@ -63,6 +64,15 @@ print("\nLASSO REGRESSION RESULTS")
 print("MSE:", lasso_mse)
 print("R2 Score:", lasso_r2)
 
+print("\nRIDGE COEFFICIENTS")
+print(ridge.weights)
+
+print("\nLASSO COEFFICIENTS")
+print(lasso.weights)
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+output_dir = os.path.join(script_dir, "outputs")
+os.makedirs(output_dir, exist_ok=True)
 
 plt.figure(figsize=(12, 5))
 plt.plot(ridge.weights)
@@ -70,7 +80,8 @@ plt.title("Ridge Regression Coefficients")
 plt.xlabel("Feature Index")
 plt.ylabel("Coefficient Value")
 plt.grid(True)
-plt.savefig("outputs/ridge_coefficients.png")
+plt.tight_layout()
+plt.savefig(os.path.join(output_dir, "ridge_coefficients.png"))
 plt.close()
 
 
@@ -80,7 +91,8 @@ plt.title("Lasso Regression Coefficients")
 plt.xlabel("Feature Index")
 plt.ylabel("Coefficient Value")
 plt.grid(True)
-plt.savefig("outputs/lasso_coefficients.png")
+plt.tight_layout()
+plt.savefig(os.path.join(output_dir, "lasso_coefficients.png"))
 plt.close()
 
 
@@ -91,12 +103,13 @@ plt.figure(figsize=(6, 5))
 plt.bar(models, mse_values)
 plt.title("MSE Comparison")
 plt.ylabel("Mean Squared Error")
-plt.savefig("outputs/mse_comparison.png")
+plt.tight_layout()
+plt.savefig(os.path.join(output_dir, "mse_comparison.png"))
 plt.close()
 
 
 ridge_non_zero = np.sum(ridge.weights != 0)
-lasso_non_zero = np.sum(lasso.weights != 0)
+lasso_non_zero = np.sum(np.abs(lasso.weights) > 0.01)
 
 print("\nNON-ZERO COEFFICIENTS")
 print("Ridge:", ridge_non_zero)
